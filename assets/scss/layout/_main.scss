@@ -1,0 +1,10 @@
+@use '../mixins/fluid-size' as size;
+
+.main {
+  margin-top: 40px;
+  padding-bottom: 40px;
+
+  @media only screen and (max-width: 780px) {
+    margin-top: 30px;
+  }
+}

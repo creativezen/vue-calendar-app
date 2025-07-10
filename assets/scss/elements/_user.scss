@@ -1,0 +1,47 @@
+@use '../mixins/fluid-size' as size;
+
+.user-dropdown {
+  --user-dropdown-icon-size: 34px;
+
+  position: relative;
+
+  &__icon {
+    svg {
+      width: var(--user-dropdown-icon-size);
+      height: var(--user-dropdown-icon-size);
+      fill: var(--black);
+    }
+  }
+
+  &__content {
+    position: absolute;
+    right: -1.8em;
+    min-width: 200px;
+    border-radius: var(--radius-large);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.18);
+    background-color: var(--white);
+    overflow: hidden;
+
+    > * {
+      width: 100%;
+    }
+  }
+
+  &__info {
+    padding: 12px;
+  }
+
+  &__name {
+    font-weight: 500;
+    @include size.calculate(font-size, 480px, 1460px, 15px, 18px);
+  }
+
+  &__email {
+    color: var(--gray-text);
+  }
+
+  &__logout {
+    padding: 12px;
+    border-top: 1px solid var(--gray-light);
+  }
+}

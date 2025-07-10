@@ -1,0 +1,37 @@
+@use '../mixins/background' as image-set;
+
+.background-properties {
+  /* обшщие свойства для фоновых картинок */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* фон главного экрана на главной странице */
+.background-hero-large {
+  @extend .background-properties;
+
+  /* генерация путей для всех устройств */
+  @include image-set.mobile(
+    '../img/background/hero/bg-large-hero-desktop',
+    '../img/background/hero/bg-large-hero-desktop_x2',
+    '../img/background/hero/bg-large-hero-tablet',
+    '../img/background/hero/bg-large-hero-tablet_x2',
+    '../img/background/hero/bg-large-hero-phone',
+    '../img/background/hero/bg-large-hero-phone_x2'
+  );
+}
+
+.background-block-cta {
+  @extend .background-properties;
+
+  @include image-set.desktop(
+    '../img/background/block/bg-block-cta',
+    '../img/background/block/bg-block-cta_2x'
+  );
+}

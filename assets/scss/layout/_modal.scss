@@ -1,0 +1,93 @@
+@use '../mixins/fluid-size' as size;
+@use '../mixins/disable-mob-hover' as mobile;
+
+.disable-scroll {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background: white;
+  padding: 20px;
+  max-width: 700px;
+  width: 90%;
+  background-color: var(--gray-sky);
+  overflow: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: var(--white);
+  cursor: pointer;
+  transition: var(--fast);
+  z-index: 10000;
+
+  @include mobile.hover {
+    transform: rotate(-90deg);
+
+    svg {
+      fill: var(--black);
+    }
+  }
+
+  svg {
+    fill: red;
+    transition: var(--fast);
+  }
+}
+
+.modal-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: max-content;
+  padding: 0.4em;
+  padding-inline: 16px;
+  border-radius: 1000px;
+  background-color: var(--white);
+  @include size.calculate(font-size, 480px, 1480px, 16px, 20px);
+
+  .date {
+    font-weight: 500;
+    color: var(--green-medium);
+  }
+
+  & + * {
+    margin-top: 20px;
+  }
+}

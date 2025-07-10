@@ -1,0 +1,16 @@
+@use '../mixins/fluid-size' as size;
+
+/* container */
+.container {
+  position: relative;
+  flex: auto;
+  margin: 0 auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-inline: var(--space);
+
+  .header &,
+  .footer & {
+    padding-inline: 0 !important;
+  }
+}

@@ -1,0 +1,316 @@
+@use '../mixins/fluid-size' as size;
+@use '../mixins/_disable-mob-hover.scss' as mobile;
+
+.calendar {
+  width: 100%;
+  margin: 0 auto;
+
+  /* &__body {
+    padding: 10px;
+    background-color: var(--gray-sky);
+    border-radius: var(--radius-large);
+    overflow: hidden;
+  } */
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  &__controls {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 6px;
+    border-radius: 100px;
+    border: 1px solid var(--green-medium);
+
+    .value {
+      font-size: 1.3rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .controls-button {
+      flex-shrink: 0;
+      width: 34px;
+      height: 24px;
+      background-color: var(--green-light);
+      border-radius: 100px;
+
+      @include mobile.hover {
+        background-color: var(--green-medium);
+        svg {
+          fill: var(--white);
+        }
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      svg {
+        fill: var(--green-medium);
+      }
+    }
+  }
+
+  &__weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    background-color: var(--gray-sky);
+    border-radius: 100px;
+    overflow: hidden;
+    z-index: 1;
+
+    .weekdays-day {
+      text-align: center;
+      padding: 10px;
+      background-color: var(--white);
+      border-radius: 1000px;
+      font-weight: bold;
+      color: var(--black);
+    }
+  }
+
+  &__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--gray-sky);
+    border-radius: var(--radius-large);
+    overflow: hidden;
+  }
+
+  &__day {
+    position: relative;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: auto;
+    min-height: 200px;
+    border: 1px solid var(--white);
+    background-color: var(--white);
+    border-radius: var(--radius-medium);
+    transition: var(--fast);
+    cursor: text;
+
+    @include mobile.hover {
+      &.has-events {
+        border-color: var(--gray-border);
+        box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+        cursor: pointer;
+
+        [class*='day-num'] {
+          background-color: var(--green-medium);
+          color: var(--white);
+        }
+      }
+    }
+
+    /* > * + * {
+      margin-top: 12px;
+    } */
+
+    &.current-day {
+      background-color: #e6fffa;
+    }
+
+    &.zero-day {
+      background-color: transparent;
+      border: 1px solid var(--gray-border);
+    }
+  }
+
+  &__day-header {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 1;
+
+    > * + * {
+      margin-left: auto;
+    }
+  }
+
+  &__day-body {
+    margin-top: auto;
+  }
+
+  &__day-marker {
+    display: flex;
+    align-items: center;
+
+    > * {
+      display: inline-block;
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 100px;
+      border: 2px solid var(--white);
+    }
+
+    > * + * {
+      margin-left: -4px;
+    }
+  }
+
+  &__day-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    width: 34px;
+    border-radius: 100px;
+    border: 1px solid var(--gray-border);
+    color: var(--gray-text);
+    line-height: 1;
+    transition: var(--fast);
+
+    .has-events & {
+      background-color: var(--green-light);
+      border-color: var(--green-light);
+      color: var(--green-medium);
+    }
+
+    .current-day & {
+      background-color: var(--white);
+      color: var(--black);
+    }
+
+    small {
+      color: var(--gray-text);
+    }
+  }
+
+  &__day-expert {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    line-height: 1;
+    @include size.calculate(font-size, 480px, 1480px, 14px, 16px);
+  }
+
+  &__day-event {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+    line-height: 1;
+    color: var(--black);
+    padding-top: 6px;
+    border-top: 1px solid var(--gray-border);
+    @include size.calculate(font-size, 480px, 1480px, 13px, 14px);
+
+    .time {
+      font-weight: 500;
+      color: var(--black);
+    }
+  }
+
+  &__event-list {
+    > * {
+      & + * {
+        margin-top: 6px;
+      }
+    }
+  }
+
+  &__event-none {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-text);
+    z-index: 0;
+  }
+
+  &__mobile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    padding: 10px;
+    background-color: var(--gray-sky);
+    border-radius: var(--radius-large);
+    overflow: hidden;
+  }
+
+  &__mobile-day {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+    border: 1px solid var(--white);
+    background-color: var(--white);
+    border-radius: var(--radius-medium);
+    transition: var(--fast);
+    cursor: text;
+  }
+
+  &__mobile-day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--gray-text);
+
+    .has-events & {
+      color: var(--black);
+    }
+  }
+
+  &__mobile-day-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  @media only screen and (max-width: 1280px) {
+    &__day-event {
+      align-items: flex-start;
+      flex-direction: column-reverse;
+      gap: 4px;
+    }
+  }
+
+  @media only screen and (min-width: 980px) {
+    &__list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media only screen and (max-width: 780px) {
+    &__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 26px;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    &__controls {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    &__body {
+      padding: 0;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}

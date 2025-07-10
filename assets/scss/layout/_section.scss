@@ -1,0 +1,84 @@
+@use '../mixins/fluid-size' as size;
+@use '../layout/article';
+
+.section-settings {
+  overflow-x: clip;
+
+  &.stream {
+    /* Вертикальные отступы между секциями */
+    @include size.calculate(padding-top, 480px, 1460px, 30px, 60px);
+    @include size.calculate(padding-bottom, 480px, 1460px, 30px, 60px);
+
+    &[data-stream-top='no'] {
+      padding-top: 0 !important;
+    }
+
+    &[data-stream-bottom='no'] {
+      padding-bottom: 0 !important;
+    }
+  }
+
+  &.breadcrumbs {
+    @include size.calculate(padding-top, 480px, 1460px, 30px, 60px);
+  }
+}
+
+/* section */
+.section {
+  @extend .section-settings;
+
+  position: relative;
+
+  &__header,
+  &__body,
+  &__footer {
+    position: inherit;
+
+    &.flex {
+      display: flex;
+
+      > .left-auto {
+        margin-top: 0;
+        margin-left: auto;
+      }
+    }
+  }
+
+  &__header + &__body,
+  &__header + &__footer {
+    @include size.calculate(margin-top, 480px, 1460px, 20px, 40px);
+  }
+
+  &__body + &__footer,
+  &__body + &__body,
+  .container + .container {
+    @include size.calculate(margin-top, 480px, 1460px, 24px, 40px);
+  }
+
+  &__header {
+    > * {
+      & + h1,
+      & + h2,
+      & + h3,
+      & + h4,
+      & + h5,
+      & + h6 {
+        margin-top: 0.4em;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    &__footer {
+      &.flex {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+
+    &__logo {
+      max-width: 100px;
+      margin-inline: auto;
+    }
+  }
+}

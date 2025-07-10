@@ -1,0 +1,52 @@
+{
+  // "workbench.colorTheme": "Bearded Theme Aquarelle Lilac",
+//   "workbench.iconTheme": "catppuccin-perfect-sequoia",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[javascript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[vue]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[html]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[css]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[scss]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[json]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+  // Настройки для отступов
+  "editor.tabSize": 2, // Размер табуляции равен 2 пробелам (стандарт для Vue)
+  "editor.insertSpaces": true, // Использовать пробелы вместо табуляций
+  "editor.trimAutoWhitespace": true, // Удалять лишние пробелы при сохранении
+
+  // Настройки для Prettier
+  "prettier.tabWidth": 2, // Размер табуляции для Prettier
+  "prettier.useTabs": false, // Использовать пробелы вместо табуляций
+  "prettier.singleQuote": true, // Использовать одинарные кавычки
+  "prettier.semi": false, // Не использовать точку с запятой в конце строк
+  "prettier.trailingComma": "es5", // Добавлять запятые в многострочных структурах
+  "prettier.bracketSpacing": true, // Добавлять пробелы внутри фигурных скобок
+  "prettier.arrowParens": "always", // Всегда оборачивать параметры стрелочных функций в скобки
+  "prettier.endOfLine": "auto" // Автоматически определять окончания строк
+
+  // Настройки для Vue
+  // "vetur.experimental.templateInterpolationService": false,
+  // "editor.codeActionsOnSave": {
+  //   "source.organizeImports": "explicit"
+  // },
+
+  // "vue.tsc.addComments": false // Отключение комментариев Volar
+}

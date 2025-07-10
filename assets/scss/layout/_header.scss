@@ -1,0 +1,121 @@
+@use '../mixins/fluid-size' as size;
+@use '../mixins/disable-mob-hover' as mobile;
+
+.header {
+  --header-icon-size: 42px;
+  --menu-space: 10px;
+
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding-inline: var(--space);
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray-border);
+  z-index: 200;
+  @include size.calculate(gap, 480px, 1660px, 30px, 80px);
+
+  &__content {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    max-width: 140px;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    @include size.calculate(gap, 1080px, 1460px, 20px, 40px);
+  }
+
+  &__logo + &__nav {
+    margin-left: auto;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    @include size.calculate(gap, 1080px, 1460px, 8px, 40px);
+
+    > * {
+      flex-shrink: 0;
+    }
+
+    [class*='button'] {
+      height: 38px !important;
+      font-size: 14px !important;
+    }
+  }
+
+  &__burger {
+    margin-left: auto;
+
+    > * {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
+      background-color: var(--gray-sky);
+    }
+  }
+
+  &__dropdown {
+    .button-icon {
+      height: 36px;
+      width: 36px;
+
+      @include mobile.hover {
+        svg {
+          fill: var(--gray-text) !important;
+        }
+      }
+
+      svg {
+        width: inherit !important;
+        height: inherit !important;
+      }
+    }
+  }
+
+  &__menu {
+    margin-left: auto;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    background-color: var(--white);
+    font-size: 18px !important;
+    color: var(--gray-text);
+
+    a {
+      font-size: inherit;
+      color: inherit;
+
+      @include mobile.hover {
+        color: var(--black);
+      }
+
+      &[class*='active'] {
+        color: var(--black);
+        cursor: text;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    &__logo {
+      max-width: 100px;
+    }
+  }
+}

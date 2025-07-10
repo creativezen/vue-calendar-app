@@ -1,0 +1,15 @@
+.menu {
+  &__list {
+    display: flex;
+    gap: 40px;
+  }
+
+  &__item {
+    color: var(--black);
+    font-weight: 500;
+
+    &.active {
+      color: var(--blue-accent);
+    }
+  }
+}

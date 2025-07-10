@@ -1,0 +1,44 @@
+.notification {
+  --success-bg: #9affd6;
+  --success-color: #0f820f;
+
+  position: fixed;
+  bottom: 2em;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-inline: auto;
+  min-width: 200px;
+  background-color: var(--white);
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transform: translateX(8em);
+  transition: var(--fast);
+  z-index: 10000;
+
+  &__item {
+    padding: 0.4em;
+    padding-inline: 1em;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+
+    &.success {
+      background-color: var(--success-bg);
+      color: var(--success-color);
+
+      svg {
+        fill: var(--success-color);
+      }
+    }
+  }
+
+  &.active {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+}

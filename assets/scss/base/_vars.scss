@@ -1,0 +1,81 @@
+@use '../mixins/font-face' as font;
+@use '../mixins/fluid-size' as size;
+
+/* Fonts connect */
+@include font.font-face('Golos', 'GolosText-SemiBold', 600, normal);
+@include font.font-face('Golos', 'GolosText-Medium', 500, normal);
+@include font.font-face('Golos', 'GolosText-Regular', 400, normal);
+
+:root {
+  --min-screen: 480px;
+  --max-screen: 1480px;
+
+  /* Layout container */
+  --scale: calc(1vw + 1vh);
+  --grid-gap: calc(var(--space) * 0.6);
+
+  --radius-small: 4px;
+  --radius-medium: 12px;
+  --radius-large: 20px;
+
+  --header-height: 78px;
+
+  --space: calc(var(--scale) * 1.4);
+  --space-small: calc(var(--scale) * 0.8);
+  --space-large: calc(var(--scale) * 2);
+  --space-gap: 20px;
+
+  --max-width: 1920px;
+  --min-widht: 320px;
+
+  --content-width: 1480px;
+  --content-offset: 85px;
+  --container-offset: 40px;
+  --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
+
+  /* Brand colors */
+  --black: #0d0d0d;
+  --white: #fff;
+  --gray: #5b6269;
+  --green-accent: #51daa3;
+  --green-dark: #167554;
+  --green-medium: #3fba88;
+  --green-light: #edfff8;
+  --black-dark: #2b2f33;
+  --gray-light: #e5e8ee;
+  --gray-silver: #a9b6c4;
+  --gray-border: #cdd9e6;
+  --gray-text: #8d98a3;
+  --gray-sky: #f4f7fb;
+
+  /* States colors */
+
+  /* Form settings */
+  --input-space: 20px;
+  --input-height: 48px;
+  --checkbox-size: 22px;
+
+  /* Gradient colors */
+
+  /* Typography */
+  --font-size: 16px;
+  --font-weight: 400;
+  --font-height: 1.6;
+  --font-spacing: -0.02em;
+  --font-color: var(--black);
+  --font-title: 'Golos', sans-serif, -apple-system, 'Segoe UI', Roboto;
+  --font-text: 'Golos', sans-serif, -apple-system, 'Segoe UI', Roboto;
+
+  /* Default animations */
+  --fast: ease 0.3s;
+  --slow: ease 0.6s;
+
+  /* Other settings */
+  --page-bg: var(--white);
+  --shadow-block: 0 4px 54px 0 rgba(136, 125, 118, 0.15);
+  --shadow-default: 0 14px 24px 0 rgba(136, 125, 118, 0.15);
+
+  @media only screen and (max-width: 680px) {
+    --header-height: 58px;
+  }
+}

@@ -1,0 +1,33 @@
+@use '../mixins/fluid-size' as size;
+@use '../mixins/disable-mob-hover' as mobile;
+
+.footer {
+  --footer-social-size: 44px;
+
+  /* прижимаем футре к нижней границе экрана */
+  margin-top: auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-inline: var(--space);
+
+  &__contacts {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    color: var(--gray-text);
+
+    * {
+      color: inherit;
+
+      @include mobile.hover {
+        color: var(--black);
+      }
+    }
+  }
+}
