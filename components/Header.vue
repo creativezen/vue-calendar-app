@@ -10,7 +10,6 @@
   }
 
   function closeModal() {
-    console.log('close')
     showModal.value = false
     document.body.classList.remove('disable-scroll')
   }
@@ -48,7 +47,7 @@
 
     <!-- Модальное окно -->
 
-    <Modal v-if="$device.isMobile || $device.isTablet" :show="showModal" @close="closeModal">
+    <Modal v-if="$device.isMobile || $device.isTablet" :show-modal="showModal" :close-modal="closeModal">
       <ul>
         <li>
           <nuxt-link to="https://lp-edpro.ru/lk/25/common/association/">Перейти на сайт</nuxt-link>

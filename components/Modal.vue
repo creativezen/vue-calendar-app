@@ -2,21 +2,19 @@
   import { defineProps, defineEmits } from 'vue'
 
   const props = defineProps({
-    show: {
+    showModal: {
       type: Boolean,
       required: true,
     },
+    closeModal: {
+      type: Function,
+      required: true,
+    },
   })
-
-  const emit = defineEmits(['close'])
-
-  function close() {
-    emit('close')
-  }
 </script>
 
 <template>
-  <div v-if="show" class="modal-overlay">
+  <div v-if="showModal" class="modal-overlay">
     <!-- Анимация фона окна -->
     <ClientOnly>
       <div
@@ -35,7 +33,7 @@
         :leave="{ x: -500, transition: { duration: 500, ease: 'easeInOut' } }"
         class="modal-content"
       >
-        <button @click="close" class="modal-close">
+        <button @click="closeModal" class="modal-close">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fill-rule="evenodd"

@@ -14,7 +14,6 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           api: 'modern',
-          // additionalData: `@use "@/assets/scss/base/vars.scss" as *;`,
         },
       },
     },
@@ -22,6 +21,6 @@ export default defineNuxtConfig({
   css: ['~/assets/scss/main.scss'],
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/image', '@nuxtjs/device'],
+  modules: ['@pinia/nuxt', '@nuxt/image', '@nuxtjs/device'],
   plugins: ['~/plugins/motion.client.ts'],
 })
