@@ -1,20 +1,22 @@
 <script setup>
   import { computed, ref } from 'vue'
   import { format, startOfMonth, addMonths, subMonths, getDaysInMonth, getDay, isSameDay } from 'date-fns'
+  import { useEventsStore } from '@/stores/eventsStore'
   import { ru } from 'date-fns/locale'
 
   // === Получение данных ===
-  const allEvents = ref([])
+  const eventsStore = useEventsStore()
+  const allEvents = computed(() => eventsStore.events)
 
-  async function getEvents() {
-    try {
-      const response = await fetch('/data/events.json')
-      const data = await response.json()
-      allEvents.value = data.all_events || []
-    } catch (error) {
-      console.log('Ошибка при загрузке мероприятий:', error)
-    }
-  }
+  // async function getEvents() {
+  //   try {
+  //     const response = await fetch('/data/events.json')
+  //     const data = await response.json()
+  //     allEvents.value = data.all_events || []
+  //   } catch (error) {
+  //     console.log('Ошибка при загрузке мероприятий:', error)
+  //   }
+  // }
 
   // === Создание календаря ===
   const today = new Date()
@@ -124,8 +126,8 @@
     document.body.classList.remove('disable-scroll')
   }
 
-  onMounted(() => {
-    getEvents()
+  onMounted(async () => {
+    await eventsStore.getAllEvents()
   })
 </script>
 

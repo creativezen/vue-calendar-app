@@ -6,7 +6,7 @@
       </div>
       <div class="section__body"></div>
       <div class="section__footer">
-        <NuxtLink to="/" class="button">На главную</NuxtLink>
+        <NuxtLink to="/" class="button" :key="$route.path">На главную</NuxtLink>
       </div>
     </div>
   </section>

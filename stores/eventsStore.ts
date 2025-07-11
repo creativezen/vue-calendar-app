@@ -1,9 +1,12 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import axios from 'axios'
 import type { Event } from '@/types'
+import axios from 'axios'
 
 export const useEventsStore = defineStore('events', () => {
+  // URL для получения всех мероприятий
+  const URL_EVENTS = `${useRuntimeConfig().public.apiUrl}/api/v1/event/all`
+
   // Состояние хранилища
   const events = ref<Event[]>([])
   const loading = ref<boolean>(false)
@@ -17,12 +20,14 @@ export const useEventsStore = defineStore('events', () => {
   })
 
   // Получаем все мероприятия
-  async function fetchEvents() {
-    loading.value = true
+  async function getAllEvents() {
+    loading.value = false
     error.value = null
 
     try {
-      const response = await axios.get<Event[]>('/api/events')
+      const response = await axios.get(URL_EVENTS, {
+        withCredentials: true,
+      })
       events.value = response.data.all_events || []
     } catch (err: any) {
       error.value = err.message || 'Ошибка при загрузке мероприятий'
@@ -33,10 +38,10 @@ export const useEventsStore = defineStore('events', () => {
 
   // Возвращаем функции для использования в компонентах
   return {
+    getAllEvents,
     getEventsByDate,
     events,
     loading,
     error,
-    fetchEvents,
   }
 })

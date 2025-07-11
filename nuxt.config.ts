@@ -9,6 +9,21 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: 'page', mode: 'out-in' },
   },
+  nitro: {
+    devProxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        prependPath: true,
+        changeOrigin: true,
+      },
+    },
+  },
+  runtimeConfig: {
+    public: {
+      // Теперь будет работать как localhost:3000/api → проксируется на localhost:8000/api
+      apiUrl: '/api',
+    },
+  },
   vite: {
     css: {
       preprocessorOptions: {
