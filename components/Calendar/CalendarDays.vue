@@ -2,6 +2,14 @@
   import IconChatExpert from '@/components/Icons/IconChatExpert.vue'
   import { computed } from 'vue'
 
+  /* 
+    CalendarDays.vue — компонент отображения дней календаря.
+    Особенности:
+    - Отображает дни календаря с мероприятиями.
+    - Позволяет фильтровать дни по выбранным направлениям.
+    - Поддерживает переключение месяцев, отображение текущего дня, работу с мобильными и десктопными версиями.
+  */
+
   const props = defineProps({
     daysInGrid: {
       type: Array,

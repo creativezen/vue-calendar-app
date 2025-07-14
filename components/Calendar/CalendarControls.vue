@@ -2,6 +2,14 @@
   import IconArrowLeft from '@/components/Icons/IconArrowLeft.vue'
   import IconArrowRight from '@/components/Icons/IconArrowRight.vue'
 
+  /* 
+    CalendarControls.vue — компонент управления календарем.
+    Особенности:
+    - Позволяет переключаться между месяцами.
+    - Отображает текущий месяц.
+    - Используется в компоненте Calendar.vue для управления навигацией по месяцам.
+  */
+
   defineProps({
     currentMonthName: {
       type: String,
