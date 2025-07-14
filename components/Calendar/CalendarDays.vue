@@ -28,7 +28,7 @@
   >
     <div class="calendar__day-header">
       <div v-if="item.events" class="calendar__day-marker">
-        <span v-for="event in item.events" :style="{ 'background-color': event.event_direction?.color || '#000' }"></span>
+        <span v-for="event in item.events" :style="{ 'background-color': event.direction?.color || '#000' }"></span>
       </div>
       <div v-if="item.day" class="calendar__day-num">
         <span>{{ item.day }}</span>
@@ -38,12 +38,12 @@
     <div v-if="item.events" class="calendar__day-body">
       <ul class="calendar__event-list">
         <li v-for="event in item.events">
-          <div v-if="event.event_direction.direction == 'Экспертный день'" class="calendar__day-expert">
+          <div v-if="event.direction.direction == 'Экспертный день'" class="calendar__day-expert">
             <IconChatExpert />
             <p>Экспертный день</p>
           </div>
           <div v-else class="calendar__day-event">
-            <span class="direction">{{ event.event_direction.direction }}</span>
+            <span class="direction">{{ event.direction.direction }}</span>
             <span class="time">{{ event.time }}</span>
           </div>
         </li>
@@ -72,19 +72,19 @@
   >
     <div class="calendar__mobile-day-header">
       <div v-if="item.events" class="calendar__day-marker">
-        <span v-for="event in item.events" :style="{ 'background-color': event.event_direction.color }"></span>
+        <span v-for="event in item.events" :style="{ 'background-color': event.direction.color }"></span>
       </div>
       <span>{{ item.day }} {{ getWeekdayName(item.date, $device.isTablet || $device.isMobile) }}</span>
     </div>
     <div v-if="item.events" class="calendar__mobile-day-body">
       <ul class="calendar__event-list">
         <li v-for="event in item.events">
-          <div v-if="event.event_direction.direction == 'Экспертный день'" class="calendar__day-expert">
+          <div v-if="event.direction.direction == 'Экспертный день'" class="calendar__day-expert">
             <IconChatExpert />
             <p>Экспертный день</p>
           </div>
           <div v-else class="calendar__day-event">
-            <span class="direction">{{ event.event_direction.direction }}</span>
+            <span class="direction">{{ event.direction.direction }}</span>
             <span class="time">{{ event.time }}</span>
           </div>
         </li>

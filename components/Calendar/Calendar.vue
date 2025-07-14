@@ -184,12 +184,12 @@
       </div>
       <ul>
         <li v-for="event in selectedDay?.events" :key="event.id" class="card">
-          <div class="card__bg"><ImageDirection :src="event.event_direction.direction" /></div>
+          <div class="card__bg"><ImageDirection :src="event.direction.direction" /></div>
           <div class="card__header">
             <div class="badge-group">
               <div class="badge white">{{ event.time }}</div>
-              <div class="badge black">{{ event.event_direction.direction }}</div>
-              <div class="badge zero">{{ event.event_type.type }}</div>
+              <div class="badge black">{{ event.direction.direction }}</div>
+              <div class="badge zero">{{ event.type.type }}</div>
             </div>
           </div>
           <div class="card__body">
