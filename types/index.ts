@@ -1,5 +1,5 @@
 // Направление мероприятия
-export interface EventDirection {
+export interface Direction {
   id: number
   direction: string
   color: string
@@ -9,7 +9,7 @@ export interface EventDirection {
 }
 
 // Тип мероприятия
-export interface EventType {
+export interface Type {
   id: number
   type: string
   created_at?: string // Присутствует в данных
@@ -37,8 +37,8 @@ export interface Event {
   status: boolean // Поле есть в данных
   type_id: number // ID типа события
   direction_id: number // ID направления
-  event_direction: EventDirection
-  event_type: EventType
+  direction: Direction
+  type: Type
   speakers: Speaker[]
   created_at?: string
   updated_at?: string
