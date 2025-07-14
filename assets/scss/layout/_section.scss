@@ -6,8 +6,8 @@
 
   &.stream {
     /* Вертикальные отступы между секциями */
-    @include size.calculate(padding-top, 480px, 1460px, 30px, 60px);
-    @include size.calculate(padding-bottom, 480px, 1460px, 30px, 60px);
+    @include size.calculate(padding-top, 480px, 1460px, 16px, 30px);
+    @include size.calculate(padding-bottom, 480px, 1460px, 16px, 30px);
 
     &[data-stream-top='no'] {
       padding-top: 0 !important;
