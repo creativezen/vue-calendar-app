@@ -21,7 +21,7 @@
       <div class="container">
         <div class="header__content">
           <div class="header__logo">
-            <img src="/public/logo_mapp.svg" alt="Календарь Мероприятий МАПП" />
+            <img src="/logo_mapp.svg" alt="Календарь Мероприятий МАПП" />
           </div>
           <menu v-if="$device.isDesktop" class="header__menu">
             <li>
