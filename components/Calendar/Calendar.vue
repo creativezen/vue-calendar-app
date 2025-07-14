@@ -208,8 +208,8 @@
                 <span class="name">{{ speaker.name }}</span>
               </div>
             </div>
-            <a href="event.url" target="_blank" rel="noopener noreferrer">
-              <span>Присоедениться</span>
+            <a :href="event.url" target="_blank" rel="noopener noreferrer">
+              <span>Присоединиться</span>
               <IconsIconArrowLink />
             </a>
           </div>
