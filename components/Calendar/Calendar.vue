@@ -1,22 +1,43 @@
 <script setup>
-  import { computed, ref } from 'vue'
+  import { computed, ref, onMounted } from 'vue'
   import { format, startOfMonth, addMonths, subMonths, getDaysInMonth, getDay, isSameDay } from 'date-fns'
   import { useEventsStore } from '@/stores/eventsStore'
+  import { useDirectionsStore } from '@/stores/directionsStore'
+  import { useUiStore } from '#imports'
   import { ru } from 'date-fns/locale'
 
   // === Получение данных ===
+  const uiStore = useUiStore()
   const eventsStore = useEventsStore()
+  const directionsStore = useDirectionsStore()
   const allEvents = computed(() => eventsStore.events)
+  const allDirections = computed(() => directionsStore.directions)
 
-  // async function getEvents() {
-  //   try {
-  //     const response = await fetch('/data/events.json')
-  //     const data = await response.json()
-  //     allEvents.value = data.all_events || []
-  //   } catch (error) {
-  //     console.log('Ошибка при загрузке мероприятий:', error)
-  //   }
-  // }
+  const directionsLoading = computed(() => uiStore.loadingMap.directions)
+  const directionsError = computed(() => uiStore.errorMap.directions)
+  const eventsLoading = computed(() => uiStore.loadingMap.events)
+  const eventsError = computed(() => uiStore.errorMap.events)
+
+  // === Фильтрация по направлениям ===
+  const selectedDirections = ref([])
+
+  function toggleDirection(id) {
+    if (selectedDirections.value.includes(id)) {
+      selectedDirections.value = selectedDirections.value.filter((d) => d !== id)
+    } else {
+      selectedDirections.value.push(id)
+    }
+  }
+
+  function showAllDirections() {
+    selectedDirections.value = []
+  }
+
+  // Фильтрованные события
+  const filteredEvents = computed(() => {
+    if (!selectedDirections.value.length) return allEvents.value
+    return allEvents.value.filter((event) => selectedDirections.value.includes(event.direction_id))
+  })
 
   // === Создание календаря ===
   const today = new Date()
@@ -91,7 +112,7 @@
       const date = new Date(currentYear.value, currentMonth.value, i)
       const dateStr = format(date, 'yyyy-MM-dd')
 
-      const dayEvents = allEvents.value.filter((event) => event.date === dateStr)
+      const dayEvents = filteredEvents.value.filter((event) => event.date === dateStr)
 
       grid.push({
         day: i,
@@ -128,11 +149,39 @@
 
   onMounted(async () => {
     await eventsStore.getAllEvents()
+    await directionsStore.getAllDirections()
   })
 </script>
 
 <template>
   <div>
+    <!-- Фильтрация по направлениям -->
+    <section class="section stream" data-stream-top="no">
+      <div class="container">
+        <div class="directions-filter">
+          <button class="button-filter" :class="{ active: !selectedDirections.length }" @click="showAllDirections">Показывать все</button>
+          <template v-if="!directionsLoading && !directionsError">
+            <button
+              v-for="direction in allDirections"
+              :key="direction.id"
+              class="button-filter"
+              :class="{ active: selectedDirections.includes(direction.id) }"
+              @click="toggleDirection(direction.id)"
+              :style="{
+                'background-color': selectedDirections.includes(direction.id) ? direction.color : '#fff',
+                color: selectedDirections.includes(direction.id) ? '#fff' : '#000',
+                borderColor: direction.color,
+              }"
+            >
+              {{ direction.direction }}
+            </button>
+          </template>
+          <span v-if="directionsLoading">Загрузка направлений...</span>
+          <span v-if="directionsError" class="error">Ошибка: {{ directionsError }}</span>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="section__header">
@@ -149,7 +198,7 @@
         <div class="section__body">
           <CalendarWeekDays />
 
-          <div class="calendar__body">
+          <div v-if="!eventsLoading && !eventsError" class="calendar__body">
             <ClientOnly>
               <ul
                 v-motion
@@ -159,9 +208,20 @@
                 :key="currentMonthKey"
                 :class="{ calendar__grid: $device.isDesktop, 'calendar__mobile-grid': $device.isMobile || $device.isTablet }"
               >
-                <CalendarDays :days-in-grid="daysInGrid" :get-weekday-name="getWeekdayName" :open-event-modal="openEventModal" />
+                <CalendarDays
+                  :days-in-grid="daysInGrid"
+                  :get-weekday-name="getWeekdayName"
+                  :open-event-modal="openEventModal"
+                  :selected-directions="selectedDirections"
+                />
               </ul>
             </ClientOnly>
+          </div>
+          <div v-if="eventsLoading" class="calendar__body">
+            <div class="loader"></div>
+          </div>
+          <div v-if="eventsError" class="calendar__body">
+            <div class="error">Ошибка: {{ eventsError }}</div>
           </div>
         </div>
 
@@ -218,3 +278,31 @@
     </Modal>
   </div>
 </template>
+
+<style scoped>
+  .directions-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .direction-btn {
+    border: 2px solid #eee;
+    background: #fff;
+    color: #000;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .direction-btn.active {
+    font-weight: bold;
+    border-width: 2px;
+  }
+  .error {
+    color: #c00;
+    margin-left: 10px;
+  }
+</style>
