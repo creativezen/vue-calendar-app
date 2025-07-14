@@ -21,7 +21,7 @@ export const useEventsStore = defineStore('events', () => {
 
   // Получаем все мероприятия
   async function getAllEvents() {
-    loading.value = false
+    loading.value = true
     error.value = null
 
     try {
