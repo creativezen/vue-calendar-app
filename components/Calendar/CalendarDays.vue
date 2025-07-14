@@ -1,7 +1,8 @@
 <script setup>
   import IconChatExpert from '@/components/Icons/IconChatExpert.vue'
+  import { computed } from 'vue'
 
-  defineProps({
+  const props = defineProps({
     daysInGrid: {
       type: Array,
       required: true,
@@ -14,7 +15,24 @@
       type: Function,
       required: false,
     },
+    // Добавляем проп для выбранных направлений (для фильтрации)
+    selectedDirections: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
   })
+
+  // Проверка: активен ли фильтр
+  const isFilterActive = computed(() => props.selectedDirections && props.selectedDirections.length > 0)
+
+  // Для каждого дня определяем, активен ли он (есть ли события по выбранным направлениям)
+  function isDayActive(day) {
+    if (!isFilterActive.value) return false
+    if (!day.events) return false
+    // Есть ли среди событий хотя бы одно с нужным direction_id
+    return day.events.some((event) => props.selectedDirections.includes(event.direction_id))
+  }
 </script>
 
 <template>
@@ -23,8 +41,11 @@
     v-if="$device.isDesktop"
     v-for="(item, index) in daysInGrid"
     :key="item.date ? item.date.toISOString() : `empty-${index}`"
-    :class="{ 'current-day': item.isCurrentDay, 'has-events': item.events, 'zero-day': !item.day }"
-    class="calendar__day"
+    :class="[
+      'calendar__day',
+      { 'current-day': item.isCurrentDay, 'has-events': item.events, 'zero-day': !item.day },
+      isFilterActive && item.day ? (isDayActive(item) ? 'active' : 'inactive') : '',
+    ]"
   >
     <div class="calendar__day-header">
       <div v-if="item.events" class="calendar__day-marker">
@@ -62,12 +83,11 @@
     v-else
     v-for="item in daysInGrid"
     :key="item.date?.toISOString()"
-    :class="{
-      'calendar__mobile-day': true,
-      'current-day': item.isCurrentDay,
-      'has-events': item.events,
-      'visually-hidden': !item.day,
-    }"
+    :class="[
+      'calendar__mobile-day',
+      { 'current-day': item.isCurrentDay, 'has-events': item.events, 'visually-hidden': !item.day },
+      isFilterActive && item.day ? (isDayActive(item) ? 'active' : 'inactive') : '',
+    ]"
     @click="openEventModal(item)"
   >
     <div class="calendar__mobile-day-header">
