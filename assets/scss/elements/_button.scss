@@ -444,3 +444,23 @@
     z-index: 10000;
   }
 }
+
+.button-filter {
+  @extend .button;
+
+  height: 36px;
+  min-height: auto;
+  border-radius: 1000px;
+  padding-inline: 12px;
+  background-color: var(--white);
+  color: var(--black);
+  border: 1px solid var(--gray-border);
+  line-height: 1;
+  font-size: 16px;
+  @include size.calculate(font-size, 480px, 1460px, 13px, 16px);
+
+  @include mobile.hover {
+    background-color: var(--black);
+    color: var(--white);
+  }
+}
