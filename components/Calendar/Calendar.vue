@@ -3,6 +3,7 @@
   import { format, startOfMonth, addMonths, subMonths, getDaysInMonth, getDay, isSameDay } from 'date-fns'
   import { useEventsStore } from '@/stores/eventsStore'
   import { useDirectionsStore } from '@/stores/directionsStore'
+  import CalendarFilter from './CalendarFilter.vue'
   import { useUiStore } from '#imports'
   import { ru } from 'date-fns/locale'
 
@@ -167,30 +168,16 @@
 
 <template>
   <div>
-    <!-- Фильтрация по направлениям -->
     <section class="section stream" data-stream-top="no">
       <div class="container">
-        <div class="directions-filter">
-          <button class="button-filter" :class="{ active: !selectedDirections.length }" @click="showAllDirections">Показывать все</button>
-          <template v-if="!directionsLoading && !directionsError">
-            <button
-              v-for="direction in allDirections"
-              :key="direction.id"
-              class="button-filter"
-              :class="{ active: selectedDirections.includes(direction.id) }"
-              @click="toggleDirection(direction.id)"
-              :style="{
-                'background-color': selectedDirections.includes(direction.id) ? direction.color : '#fff',
-                color: selectedDirections.includes(direction.id) ? '#fff' : '#000',
-                borderColor: direction.color,
-              }"
-            >
-              {{ direction.direction }}
-            </button>
-          </template>
-          <span v-if="directionsLoading">Загрузка направлений...</span>
-          <span v-if="directionsError" class="error">Ошибка: {{ directionsError }}</span>
-        </div>
+        <CalendarFilter
+          :all-directions="allDirections"
+          :selected-directions="selectedDirections"
+          :directions-loading="directionsLoading"
+          :directions-error="directionsError"
+          :toggle-direction="toggleDirection"
+          :show-all-directions="showAllDirections"
+        />
       </div>
     </section>
 
