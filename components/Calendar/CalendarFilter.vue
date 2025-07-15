@@ -19,6 +19,7 @@
     directionsLoading: {
       type: Boolean,
       required: true,
+      default: false,
     },
     directionsError: {
       type: [String, null],
