@@ -256,7 +256,7 @@
           <div class="card__header">
             <div class="badge-group">
               <div v-if="event.time" class="badge white">{{ event.time }}</div>
-              <div v-else class="badge red">Время уточняется</div>
+              <div v-else-if="event.direction.direction !== 'Экспертный день'" class="badge red">Время уточняется</div>
               <div class="badge black">{{ event.direction.direction }}</div>
               <div class="badge zero">{{ event.type.type }}</div>
             </div>
