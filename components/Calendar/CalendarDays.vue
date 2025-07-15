@@ -1,5 +1,6 @@
 <script setup>
   import IconChatExpert from '@/components/Icons/IconChatExpert.vue'
+  import IconNoTime from '@/components/Icons/IconNoTime.vue'
   import { computed } from 'vue'
 
   /* 
@@ -57,7 +58,7 @@
   >
     <div class="calendar__day-header">
       <div v-if="item.events" class="calendar__day-marker">
-        <span v-for="event in item.events" :style="{ 'background-color': event.direction?.color || '#000' }"></span>
+        <span v-for="event in item.events" :style="{ 'background-color': event.direction?.color }"></span>
       </div>
       <div v-if="item.day" class="calendar__day-num">
         <span>{{ item.day }}</span>
@@ -73,7 +74,10 @@
           </div>
           <div v-else class="calendar__day-event">
             <span class="direction">{{ event.direction.direction }}</span>
-            <span class="time">{{ event.time }}</span>
+            <span v-if="event.time" class="time">{{ event.time }}</span>
+            <span v-else class="time">
+              <IconNoTime />
+            </span>
           </div>
         </li>
       </ul>
@@ -113,7 +117,10 @@
           </div>
           <div v-else class="calendar__day-event">
             <span class="direction">{{ event.direction.direction }}</span>
-            <span class="time">{{ event.time }}</span>
+            <span v-if="event.time" class="time">{{ event.time }}</span>
+            <span v-else class="time">
+              <IconNoTime />
+            </span>
           </div>
         </li>
       </ul>

@@ -125,7 +125,16 @@
       const date = new Date(currentYear.value, currentMonth.value, i)
       const dateStr = format(date, 'yyyy-MM-dd')
 
-      const dayEvents = filteredEvents.value.filter((event) => event.date === dateStr)
+      let dayEvents = filteredEvents.value.filter((event) => event.date === dateStr)
+      // Сортировка по времени (по возрастанию)
+      dayEvents = dayEvents.slice().sort((a, b) => {
+        // Если time пустое, считаем его самым поздним
+        if (!a.time && !b.time) return 0
+        if (!a.time) return 1
+        if (!b.time) return -1
+        // Сравниваем как HH:mm
+        return a.time.localeCompare(b.time)
+      })
 
       grid.push({
         day: i,
@@ -246,7 +255,8 @@
           <div class="card__bg"><ImageDirection :src="event.direction.direction" /></div>
           <div class="card__header">
             <div class="badge-group">
-              <div class="badge white">{{ event.time }}</div>
+              <div v-if="event.time" class="badge white">{{ event.time }}</div>
+              <div v-else class="badge red">Время уточняется</div>
               <div class="badge black">{{ event.direction.direction }}</div>
               <div class="badge zero">{{ event.type.type }}</div>
             </div>
