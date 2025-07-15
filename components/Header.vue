@@ -28,7 +28,7 @@
               <nuxt-link to="https://lp-edpro.ru/lk/25/common/association/">Перейти на сайт</nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/contacts">Задать вопрос</nuxt-link>
+              <nuxt-link to="https://t.me/vershinina_anastasiya" target="_blank">Задать вопрос</nuxt-link>
             </li>
           </menu>
           <div v-if="$device.isMobile || $device.isTablet" class="header__burger">
