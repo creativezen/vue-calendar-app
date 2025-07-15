@@ -463,4 +463,9 @@
     background-color: var(--black);
     color: var(--white);
   }
+
+  &.active {
+    background-color: var(--black);
+    color: var(--white);
+  }
 }
