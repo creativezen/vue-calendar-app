@@ -277,31 +277,3 @@
     </Modal>
   </div>
 </template>
-
-<style scoped>
-  .directions-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .direction-btn {
-    border: 2px solid #eee;
-    background: #fff;
-    color: #000;
-    padding: 6px 16px;
-    border-radius: 100px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .direction-btn.active {
-    font-weight: bold;
-    border-width: 2px;
-  }
-  .error {
-    color: #c00;
-    margin-left: 10px;
-  }
-</style>
