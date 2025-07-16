@@ -169,6 +169,19 @@
     document.body.classList.remove('disable-scroll')
   }
 
+  // Функция для нормализации пути к фото спикера
+  function normalizeSpeakerPhotoPath(photo) {
+    if (!photo) return '/img/users/user_placeholder.png'
+    // Ищем uploads/speakers/...
+    const match = photo.match(/uploads\/speakers\/(\d+)\/([\w-]+_\d+\.\w+)/)
+    if (match) {
+      // Формируем путь для public/img/speakers/...
+      return `/img/speakers/${match[1]}/${match[2]}`
+    }
+    // Если не совпало — возвращаем плейсхолдер
+    return '/img/users/user_placeholder.png'
+  }
+
   onMounted(async () => {
     await eventsStore.getAllEvents()
     await directionsStore.getAllDirections()
@@ -271,7 +284,7 @@
             <div class="card__group">
               <div v-for="speaker in event.speakers" :key="speaker.id" class="card__speaker">
                 <div class="photo">
-                  <img v-if="speaker.photo" :src="speaker.photo" :alt="speaker.name" width="32" height="32" />
+                  <img v-if="speaker.photo" :src="normalizeSpeakerPhotoPath(speaker.photo)" :alt="speaker.name" width="32" height="32" />
                   <img v-else src="/img/users/user_placeholder.png" alt="" />
                 </div>
                 <span class="name">{{ speaker.name }}</span>
