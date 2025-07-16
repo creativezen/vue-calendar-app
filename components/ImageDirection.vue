@@ -20,6 +20,8 @@
       return '/img/events/bg/psihologia.jpg'
     } else if (imgSrc == 'Дизайн интерьера') {
       return '/img/events/bg/dizain-interera.jpg'
+    } else if (imgSrc == 'Экспертный день') {
+      return '/img/events/bg/ekspertniy-den.jpg'
     }
   }
 </script>
